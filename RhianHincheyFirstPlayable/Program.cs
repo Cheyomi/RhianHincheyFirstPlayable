@@ -10,7 +10,7 @@ class Test
     static string[] map = File.ReadAllLines(path, Encoding.UTF8); //Reading all lines of the file into an array
     public static void Main()
     {
-
+        StartGame();
         DisplayMap();
 
         //▒ - Grass (Majority)
@@ -20,10 +20,27 @@ class Test
 
     }
 
+
+    static void StartGame()
+    {
+        Console.ForegroundColor = ConsoleColor.Magenta;
+        Console.WriteLine("╔══════════════════════════════════════════════════════╗");
+        Console.WriteLine("║                                                      ║");
+        Console.WriteLine("║        Click any button to start the game!           ║");
+        Console.WriteLine("║                                                      ║");
+        Console.WriteLine("╚══════════════════════════════════════════════════════╝");
+        Console.ResetColor();
+        Console.ReadKey();
+        Console.Clear();
+
+    }
+
     static void DisplayMap()
     {
         foreach (string line in map)
         {
+            line.Replace("\n", "");
+
             foreach (char tile in line)
             {
                 if (tile == '▒')
@@ -40,16 +57,17 @@ class Test
                 }
                 else if (tile == '+')
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                 }
                 else if (tile == '-')
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                 }
                 else if (tile == '|')
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Magenta;
                 }
+
 
                     Console.Write(tile);
                 
@@ -60,12 +78,15 @@ class Test
             Console.ResetColor();
 
 
+
         }
 
 
 
 
     }
+
+
 
 
 }

@@ -32,11 +32,6 @@ namespace RhianHincheyFirstPlayable
         'W', 'A', 'S', 'D',
         };
 
-        static int Clamp(this int value, int min, int max)
-        {
-            return Math.Max(min, Math.Min(value, max));
-        }
-
         public static void Main()
         {
             
@@ -47,9 +42,10 @@ namespace RhianHincheyFirstPlayable
 
             while (isPlaying)
             {
-               
+                HUD();
                 ProcessInput();
                 DrawPlayer();
+                AttackEnemy();
                 Thread.Sleep(100);
                 MoveEnemy();
                 DrawEnemy();
@@ -71,10 +67,25 @@ namespace RhianHincheyFirstPlayable
         {
             Console.CursorVisible = false;
 
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Console.WriteLine("On that fateful day...");
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("It was time for your revenge...");
+            Console.ReadKey();
+            Console.Clear();
+            Console.WriteLine("He ate your beloved friend..");
+            Console.ReadKey();
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("HE ATE NINE! AVENGE YOUR FRIEND!");
+            Console.ReadKey();
+            Console.Clear();
+
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("╔══════════════════════════════════════════════════════╗");
             Console.WriteLine("║                                                      ║");
-            Console.WriteLine("║        Click any button to start the game!           ║");
+            Console.WriteLine("║            Click any button to avenge Nine.          ║");
             Console.WriteLine("║                                                      ║");
             Console.WriteLine("╚══════════════════════════════════════════════════════╝");
             Console.ResetColor();
@@ -86,10 +97,6 @@ namespace RhianHincheyFirstPlayable
         {
             int playerInputX = 0;
             int playerInputY = 0;
-
-            
-
-
 
             ConsoleKey input = ConsoleKey.NoName;
             while (!allKeybindings.Contains(((char)input)))
@@ -196,43 +203,25 @@ namespace RhianHincheyFirstPlayable
 
         static void MoveEnemy()
         {
-            int distanceX = playerX - enemyX;
-            int distanceY = playerY - enemyY;
-
-            if (Math.Abs(distanceX) > Math.Abs(distanceY))
-            {
-                if (distanceX > 0)
-                {
-                    MoveEnemyToSpot(enemyX + 1, enemyY);
-                }
-                else
-                {
-                    MoveEnemyToSpot(enemyX - 1, enemyY);
-                }
-            }
-            else
-            {
-                if (distanceY > 0)
-                {
-                    MoveEnemyToSpot(enemyX, enemyY + 1);
-                }
-                else
-                {
-                    MoveEnemyToSpot(enemyX, enemyY - 1 );
-                }
-            }
-
-        }
-
-        static void MoveEnemyToSpot(int x, int y)
-        {
             ClearEnemy();
-
-            if (map[y][x] == '▒' || map[y][x] == '░')
+            if (playerX < enemyX)
             {
-                enemyY = y;
-                enemyX = x;
+                enemyX--;
             }
+            else if (playerX > enemyX)
+            {
+                enemyX++;
+            }
+            else if (playerY < enemyY)
+            {
+                enemyY--;
+            }
+            else if (playerY > enemyY)
+            {
+                enemyY++;
+            }
+
+
         }
 
         static void DrawEnemy()
@@ -248,6 +237,55 @@ namespace RhianHincheyFirstPlayable
             Console.SetCursorPosition(enemyX, enemyY);
             DrawTile(map[enemyY][enemyX]);
         }
+
+        static void AttackEnemy()
+        {
+            if (playerX == enemyX && playerY == enemyY)
+            {
+                enemyHealth--;
+            }
+        }
+
+        static void HUD()
+        {
+            Console.SetCursorPosition(5, 19);
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("================ LEGEND ================");
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("      6  -> Player");
+            Console.WriteLine("      Player Health: " + playerHealth);
+
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write("      7  -> Enemy");
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("       Enemy Health: " + enemyHealth);
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("      ▒  -> Grass");
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.WriteLine("      ▓  -> Water");
+
+            Console.ForegroundColor = ConsoleColor.DarkGreen;
+            Console.WriteLine("      ░  -> Forest");
+
+            
+
+
+            
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("      Player Position: X" + playerX + ", Y" + playerY + "     ");
+            Console.WriteLine("      Enemy Position: X" + enemyX + ", Y" + enemyY + "      ");
+
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("     ======================================");
+
+            Console.ResetColor();
+        }
+
 
 
 

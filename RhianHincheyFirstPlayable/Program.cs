@@ -249,17 +249,17 @@ namespace RhianHincheyFirstPlayable
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("       Enemy Status: Healthy");
             }
-            if (enemyHealth == 2)
+            else if (enemyHealth == 2)
             {
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("       Enemy Status: Injured");
             }
-            if (enemyHealth == 1)
+            else if (enemyHealth == 1)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("       Enemy Status: Suffering");
             }
-            if (enemyHealth == 0)
+            else if (enemyHealth == 0)
             {
                 Console.ForegroundColor = ConsoleColor.DarkRed;
                 Console.WriteLine("       Enemy Status: Dead");
@@ -284,7 +284,7 @@ namespace RhianHincheyFirstPlayable
                 EnemyStatus();
 
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("      ▒  -> Grass");
+                Console.Write("      ▒  -> Grass");
 
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("      ▓  -> Water");

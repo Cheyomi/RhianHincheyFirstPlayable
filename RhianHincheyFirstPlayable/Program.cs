@@ -25,7 +25,6 @@ namespace RhianHincheyFirstPlayable
         static int enemyX = 15;
         static int enemyY = 10;
         static int enemyHealth = 3;
-        static int enemyDamage = 1;
 
         static char[] allKeybindings = new char[]
         {
@@ -34,7 +33,7 @@ namespace RhianHincheyFirstPlayable
 
         public static void Main()
         {
-            
+
             StartGame();
             DrawMap();
             DrawPlayer();
@@ -45,13 +44,13 @@ namespace RhianHincheyFirstPlayable
                 HUD();
                 ProcessInput();
                 DrawPlayer();
-                AttackEnemy();
                 Thread.Sleep(100);
                 MoveEnemy();
                 DrawEnemy();
-                
+                AttackEnemy();
+
             }
-                
+
 
 
 
@@ -66,21 +65,6 @@ namespace RhianHincheyFirstPlayable
         static void StartGame()
         {
             Console.CursorVisible = false;
-
-            Console.ForegroundColor = ConsoleColor.Blue;
-            Console.WriteLine("On that fateful day...");
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine("It was time for your revenge...");
-            Console.ReadKey();
-            Console.Clear();
-            Console.WriteLine("He ate your beloved friend..");
-            Console.ReadKey();
-            Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("HE ATE NINE! AVENGE YOUR FRIEND!");
-            Console.ReadKey();
-            Console.Clear();
 
             Console.ForegroundColor = ConsoleColor.Magenta;
             Console.WriteLine("╔══════════════════════════════════════════════════════╗");
@@ -226,68 +210,105 @@ namespace RhianHincheyFirstPlayable
 
         static void DrawEnemy()
         {
-            Console.BackgroundColor = ConsoleColor.Red;
-            Console.SetCursorPosition(enemyX, enemyY);
-            Console.Write('6');
-            Console.BackgroundColor = ConsoleColor.Black;
-        }
 
-        static void ClearEnemy()
-        {
-            Console.SetCursorPosition(enemyX, enemyY);
-            DrawTile(map[enemyY][enemyX]);
-        }
-
-        static void AttackEnemy()
-        {
-            if (playerX == enemyX && playerY == enemyY)
+            if (enemyHealth > 0)
             {
-                enemyHealth--;
+                {
+                    Console.BackgroundColor = ConsoleColor.Red;
+                    Console.SetCursorPosition(enemyX, enemyY);
+                    Console.Write('6');
+                    Console.BackgroundColor = ConsoleColor.Black;
+                }
+
+
+            }
+        }
+            static void ClearEnemy()
+            {
+                Console.SetCursorPosition(enemyX, enemyY);
+                DrawTile(map[enemyY][enemyX]);
+            }
+
+            static void AttackEnemy()
+            {
+            
+                if (enemyHealth > 0)
+            {
+                if (playerX == enemyX && playerY == enemyY)
+                {
+                    enemyHealth--;
+                }
+            }
+
+            }
+
+        static void EnemyStatus()
+        {
+            if (enemyHealth == 3)
+            {
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("       Enemy Status: Healthy");
+            }
+            if (enemyHealth == 2)
+            {
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("       Enemy Status: Injured");
+            }
+            if (enemyHealth == 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("       Enemy Status: Suffering");
+            }
+            if (enemyHealth == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine("       Enemy Status: Dead");
             }
         }
 
-        static void HUD()
-        {
-            Console.SetCursorPosition(5, 19);
+            static void HUD()
+            {
+                Console.SetCursorPosition(5, 19);
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("================ LEGEND ================");
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("================ LEGEND ================");
 
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.Write("      6  -> Player");
-            Console.WriteLine("      Player Health: " + playerHealth);
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("      6  -> Player");
+                Console.WriteLine("      Player Health: " + playerHealth);
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("      7  -> Enemy");
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("       Enemy Health: " + enemyHealth);
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("      7  -> Enemy");
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("       Enemy Health: " + enemyHealth);
+                EnemyStatus();
 
-            Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("      ▒  -> Grass");
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine("      ▒  -> Grass");
 
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.WriteLine("      ▓  -> Water");
+                Console.ForegroundColor = ConsoleColor.Cyan;
+                Console.WriteLine("      ▓  -> Water");
 
-            Console.ForegroundColor = ConsoleColor.DarkGreen;
-            Console.WriteLine("      ░  -> Forest");
-
-            
+                Console.ForegroundColor = ConsoleColor.DarkGreen;
+                Console.WriteLine("      ░  -> Forest");
 
 
-            
-            Console.WriteLine();
-            Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("      Player Position: X" + playerX + ", Y" + playerY + "     ");
-            Console.WriteLine("      Enemy Position: X" + enemyX + ", Y" + enemyY + "      ");
 
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("     ======================================");
 
-            Console.ResetColor();
+
+                Console.WriteLine();
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("      Player Position: X" + playerX + ", Y" + playerY + "     ");
+                Console.WriteLine("      Enemy Position: X" + enemyX + ", Y" + enemyY + "      ");
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("     ======================================");
+
+                Console.ResetColor();
+            }
+
+
+
+
         }
-
-
-
-
     }
-}
